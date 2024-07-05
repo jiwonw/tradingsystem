@@ -16,8 +16,8 @@ public:
 	void sell(string stockCode, int price, int count) {
 
 	}
-	void getPrice(string stockCode) {
-
+	int getPrice(string stockCode) {
+		return 0;
 	}
 
 private:

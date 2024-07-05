@@ -123,7 +123,7 @@ TEST_F(TradingSystemFixture, Nemo_sell)
 	// Act
 	ts.selectStockBroker("Nemo");
 	ts.login(ID, PW);
-	ts.buy("SAMSUNG", 100000, 50);
+	ts.sell("SAMSUNG", 100000, 50);
 }
 
 TEST_F(TradingSystemFixture, Kiwer_sell_without_login)
@@ -156,4 +156,28 @@ TEST_F(TradingSystemFixture, Nemo_sell_without_login)
 	catch (exception& e) {
 		EXPECT_EQ(e.what(), string("Please login before selling stocks."));
 	}
+}
+
+// GET PRICE !!!
+
+TEST_F(TradingSystemFixture, Kiwer_getPrice)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_KIWER, currentPrice("SAMSUNG"))
+		.Times(1);
+
+	// Act
+	ts.selectStockBroker("Kiwer");
+	int price = ts.getPrice("SAMSUNG");
+}
+
+TEST_F(TradingSystemFixture, Nemo_getPrice)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_NEMO, getMarketPrice("SAMSUNG", 0))
+		.Times(1);
+
+	// Act
+	ts.selectStockBroker("Nemo");
+	int price = ts.getPrice("SAMSUNG");
 }
