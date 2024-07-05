@@ -11,6 +11,27 @@ public:
 	const string PW = "ABCD1234";
 	MockKiwer MOCK_KIWER;
 	MockNemo MOCK_NEMO;
+
+	vector<int> price_descending = {
+		100009
+		, 100008
+		, 100007
+		, 100006
+		, 100005
+		, 100004
+		, 100003
+		, 100002
+	};
+	vector<int> price_ascending = {
+		100000
+		, 100003
+		, 100004
+		, 100005
+		, 100006
+		, 100007
+		, 100008
+		, 100009
+	};
 };
 
 // LOGIN !!!
@@ -187,26 +208,16 @@ TEST_F(TradingSystemFixture, Nemo_getPrice)
 // BUY NICE TIMING !!!
 TEST_F(TradingSystemFixture, Kiwer_buyNiceTiming)
 {
-	vector<int> price = {
-		100000
-		, 100003
-		, 100004
-		, 100005
-		, 100006
-		, 100007
-		, 100008
-		, 100009
-	};
 	// Arrange
 	EXPECT_CALL(MOCK_KIWER, currentPrice("SAMSUNG"))
-		.WillOnce(testing::Return(price[0]))
-		.WillOnce(testing::Return(price[1]))
-		.WillOnce(testing::Return(price[2]))
-		.WillOnce(testing::Return(price[3]))
-		.WillOnce(testing::Return(price[4]))
-		.WillOnce(testing::Return(price[5]))
-		.WillOnce(testing::Return(price[6]))
-		.WillOnce(testing::Return(price[7]));
+		.WillOnce(testing::Return(price_ascending[0]))
+		.WillOnce(testing::Return(price_ascending[1]))
+		.WillOnce(testing::Return(price_ascending[2]))
+		.WillOnce(testing::Return(price_ascending[3]))
+		.WillOnce(testing::Return(price_ascending[4]))
+		.WillOnce(testing::Return(price_ascending[5]))
+		.WillOnce(testing::Return(price_ascending[6]))
+		.WillOnce(testing::Return(price_ascending[7]));
 	EXPECT_CALL(MOCK_KIWER, buy("SAMSUNG", testing::_, testing::_))
 		.Times(testing::AtLeast(1));
 
@@ -219,27 +230,16 @@ TEST_F(TradingSystemFixture, Kiwer_buyNiceTiming)
 
 TEST_F(TradingSystemFixture, Nemo_buyNiceTiming)
 {
-	vector<int> price = {
-		100000
-		, 100003
-		, 100004
-		, 100005
-		, 100006
-		, 100007
-		, 100008
-		, 100009
-	};
-
 	// Arrange
 	EXPECT_CALL(MOCK_NEMO, getMarketPrice("SAMSUNG", 0))
-		.WillOnce(testing::Return(price[0]))
-		.WillOnce(testing::Return(price[1]))
-		.WillOnce(testing::Return(price[2]))
-		.WillOnce(testing::Return(price[3]))
-		.WillOnce(testing::Return(price[4]))
-		.WillOnce(testing::Return(price[5]))
-		.WillOnce(testing::Return(price[6]))
-		.WillOnce(testing::Return(price[7]));
+		.WillOnce(testing::Return(price_ascending[0]))
+		.WillOnce(testing::Return(price_ascending[1]))
+		.WillOnce(testing::Return(price_ascending[2]))
+		.WillOnce(testing::Return(price_ascending[3]))
+		.WillOnce(testing::Return(price_ascending[4]))
+		.WillOnce(testing::Return(price_ascending[5]))
+		.WillOnce(testing::Return(price_ascending[6]))
+		.WillOnce(testing::Return(price_ascending[7]));
 
 	EXPECT_CALL(MOCK_NEMO, purchasingStock("SAMSUNG", testing::_, testing::_))
 		.Times(testing::AtLeast(1));
@@ -249,4 +249,51 @@ TEST_F(TradingSystemFixture, Nemo_buyNiceTiming)
 	ts.selectStockBroker(&MOCK_NEMO);
 	ts.login(ID, PW);
 	ts.buyNiceTiming("SAMSUNG", 1000000);
+}
+
+
+// SELL NICE TIMING !!!
+TEST_F(TradingSystemFixture, Kiwer_buyNiceTiming)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_KIWER, currentPrice("SAMSUNG"))
+		.WillOnce(testing::Return(price_descending[0]))
+		.WillOnce(testing::Return(price_descending[1]))
+		.WillOnce(testing::Return(price_descending[2]))
+		.WillOnce(testing::Return(price_descending[3]))
+		.WillOnce(testing::Return(price_descending[4]))
+		.WillOnce(testing::Return(price_descending[5]))
+		.WillOnce(testing::Return(price_descending[6]))
+		.WillOnce(testing::Return(price_descending[7]));
+	EXPECT_CALL(MOCK_KIWER, buy("SAMSUNG", testing::_, testing::_))
+		.Times(testing::AtLeast(1));
+
+
+	// Act
+	ts.selectStockBroker(&MOCK_KIWER);
+	ts.login(ID, PW);
+	ts.sellNiceTiming("SAMSUNG", 1000000);
+}
+
+TEST_F(TradingSystemFixture, Nemo_buyNiceTiming)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_NEMO, getMarketPrice("SAMSUNG", 0))
+		.WillOnce(testing::Return(price_descending[0]))
+		.WillOnce(testing::Return(price_descending[1]))
+		.WillOnce(testing::Return(price_descending[2]))
+		.WillOnce(testing::Return(price_descending[3]))
+		.WillOnce(testing::Return(price_descending[4]))
+		.WillOnce(testing::Return(price_descending[5]))
+		.WillOnce(testing::Return(price_descending[6]))
+		.WillOnce(testing::Return(price_descending[7]));
+
+	EXPECT_CALL(MOCK_NEMO, purchasingStock("SAMSUNG", testing::_, testing::_))
+		.Times(testing::AtLeast(1));
+
+
+	// Act
+	ts.selectStockBroker(&MOCK_NEMO);
+	ts.login(ID, PW);
+	ts.sellNiceTiming("SAMSUNG", 1000000);
 }
