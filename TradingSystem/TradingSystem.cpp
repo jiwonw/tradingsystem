@@ -11,7 +11,7 @@ interface StockBrokerDriver {
 	virtual void login(string id, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
-	virtual int getPrice(string stockCode, int minute) = 0;
+	virtual int getPrice(string stockCode) = 0;
 };
 
 class KiwerDriver : public StockBrokerDriver {
@@ -30,7 +30,7 @@ public:
 	void sell(string stockCode, int price, int count) {
 
 	}
-	int getPrice(string stockCode, int minute) {
+	int getPrice(string stockCode) {
 		return 0;
 	}
 private:
@@ -53,7 +53,7 @@ public:
 	void sell(string stockCode, int price, int count) {
 
 	}
-	int getPrice(string stockCode, int minute) {
+	int getPrice(string stockCode) {
 		return 0;
 	}
 private:
@@ -80,8 +80,14 @@ public:
 	void sell(string stockCode, int price, int count) {
 		driver->sell(stockCode, price, count);
 	}
-	int getPrice(string stockCode, int minute) {
-		return driver->getPrice(stockCode, minute);
+	int getPrice(string stockCode) {
+		return driver->getPrice(stockCode);
+	}
+	void buyNiceTiming(string stockCode, int balance) {
+
+	}
+	void sellNiceTiming(string stockCode, int count) {
+
 	}
 
 private:
