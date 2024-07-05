@@ -85,6 +85,12 @@ public:
 	int getPrice(string stockCode) {
 		return driver->getPrice(stockCode);
 	}
+	void buyNiceTiming(string stockCode, int balance) {
+
+	}
+	void sellNiceTiming(string stockCode, int count) {
+
+	}
 
 private:
 	StockBrokerDriver* driver;
