@@ -22,13 +22,13 @@ public:
 
 	}
 	void login(string id, string password) {
-
+		api->login(id,  password);
 	}
 	void buy(string stockCode, int price, int count) {
-
+		api->buy(stockCode, price, count);
 	}
 	void sell(string stockCode, int price, int count) {
-
+		api->sell(stockCode, price, count);
 	}
 	int getPrice(string stockCode, int minute) {
 		return 0;
@@ -45,13 +45,13 @@ public:
 
 	}
 	void login(string id, string password) {
-
+		api->certification(id, password);
 	}
 	void buy(string stockCode, int price, int count) {
-
+		api->purchasingStock(stockCode, price, count);
 	}
 	void sell(string stockCode, int price, int count) {
-
+		api->sellingStock(stockCode, price, count);
 	}
 	int getPrice(string stockCode, int minute) {
 		return 0;
@@ -60,18 +60,7 @@ private:
 	NemoAPI* api;
 };
 
-interface DriverSelector {
-	virtual StockBrokerDriver* selectDriver(string name) = 0;
-};
 
-class ProductDriverSelector : public DriverSelector {
-public:
-	StockBrokerDriver* selectDriver(string name) override
-	{
-		if ("Kiwer") return new KiwerDriver();
-		if ("Nemo") return  new NemoDriver();
-	}
-};
 
 class TradingSystem
 {
@@ -99,5 +88,4 @@ public:
 
 private:
 	StockBrokerDriver* driver;
-	DriverSelector& driver_selector;
 };
