@@ -60,6 +60,19 @@ private:
 	NemoAPI* api;
 };
 
+interface DriverSelector {
+	virtual StockBrokerDriver* selectDriver(string name) = 0;
+};
+
+class ProductDriverSelector : public DriverSelector {
+public:
+	StockBrokerDriver* selectDriver(string name) override
+	{
+		if ("Kiwer") return new KiwerDriver();
+		if ("Nemo") return  new NemoDriver();
+	}
+};
+
 class TradingSystem
 {
 public:
@@ -86,4 +99,5 @@ public:
 
 private:
 	StockBrokerDriver* driver;
+	DriverSelector& driver_selector;
 };
