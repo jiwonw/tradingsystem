@@ -4,19 +4,19 @@ using namespace std;
 class TradingSystem
 {
 public:
-	void selectStockBroker(string Name) {
+	virtual void selectStockBroker(string Name) {
 
 	}
-	void login(string id, string password ) {
+	virtual void login(string id, string password ) {
 
 	}
-	void buy(string stockCode, int price, int count) {
+	virtual void buy(string stockCode, int price, int count) {
 
 	}
-	void sell(string stockCode, int price, int count) {
+	virtual void sell(string stockCode, int price, int count) {
 
 	}
-	void getPrice(string stockCode) {
+	virtual void getPrice(string stockCode) {
 
 	}
 
