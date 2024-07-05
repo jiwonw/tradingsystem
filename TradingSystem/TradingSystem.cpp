@@ -1,6 +1,8 @@
+#pragma once
 #include <string>
 #include "KiwerAPI.cpp"
 #include "NemoAPI.cpp"
+
 using namespace std;
 
 #define interface struct
@@ -13,17 +15,49 @@ interface StockBrokerDriver {
 };
 
 class KiwerDriver : public StockBrokerDriver {
-	void login(string id, string password);
-	void buy(string stockCode, int price, int count);
-	void sell(string stockCode, int price, int count);
-	int getPrice(string stockCode, int minute);
+public:
+	KiwerDriver(KiwerAPI* api)
+		: api{ api }
+	{
+
+	}
+	void login(string id, string password) {
+
+	}
+	void buy(string stockCode, int price, int count) {
+
+	}
+	void sell(string stockCode, int price, int count) {
+
+	}
+	int getPrice(string stockCode, int minute) {
+		return 0;
+	}
+private:
+	KiwerAPI* api;
 };
 
 class NemoDriver : public StockBrokerDriver {
-	void login(string id, string password);
-	void buy(string stockCode, int price, int count);
-	void sell(string stockCode, int price, int count);
-	int getPrice(string stockCode, int minute);
+public:
+	NemoDriver(NemoAPI* api)
+		: api{ api }
+	{
+
+	}
+	void login(string id, string password) {
+
+	}
+	void buy(string stockCode, int price, int count) {
+
+	}
+	void sell(string stockCode, int price, int count) {
+
+	}
+	int getPrice(string stockCode, int minute) {
+		return 0;
+	}
+private:
+	NemoAPI* api;
 };
 
 interface DriverSelector {
@@ -42,11 +76,14 @@ public:
 class TradingSystem
 {
 public:
-	TradingSystem(DriverSelector& driver_selector) : driver_selector{ driver_selector } {};
-
-	void selectStockBroker(string Name) {
-		driver = this->driver_selector.selectDriver(Name);
+	void selectStockBroker(KiwerAPI *api) {
+		driver = new KiwerDriver(api);
 	}
+
+	void selectStockBroker(NemoAPI *api) {
+		driver = new NemoDriver(api);
+	}
+
 	void login(string id, string password ) {
 		driver->login(id, password);
 	}
