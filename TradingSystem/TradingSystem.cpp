@@ -11,7 +11,7 @@ interface StockBrokerDriver {
 	virtual void login(string id, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
-	virtual int getPrice(string stockCode, int minute) = 0;
+	virtual int getPrice(string stockCode) = 0;
 };
 
 class KiwerDriver : public StockBrokerDriver {
@@ -30,8 +30,8 @@ public:
 	void sell(string stockCode, int price, int count) {
 		api->sell(stockCode, price, count);
 	}
-	int getPrice(string stockCode, int minute) {
-		return 0;
+	int getPrice(string stockCode) {
+		return api->currentPrice(stockCode);
 	}
 private:
 	KiwerAPI* api;
@@ -53,8 +53,8 @@ public:
 	void sell(string stockCode, int price, int count) {
 		api->sellingStock(stockCode, price, count);
 	}
-	int getPrice(string stockCode, int minute) {
-		return 0;
+	int getPrice(string stockCode) {
+		return api->getMarketPrice(stockCode, 0);
 	}
 private:
 	NemoAPI* api;
@@ -82,8 +82,8 @@ public:
 	void sell(string stockCode, int price, int count) {
 		driver->sell(stockCode, price, count);
 	}
-	int getPrice(string stockCode, int minute) {
-		return driver->getPrice(stockCode, minute);
+	int getPrice(string stockCode) {
+		return driver->getPrice(stockCode);
 	}
 
 private:

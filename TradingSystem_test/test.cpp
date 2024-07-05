@@ -162,24 +162,24 @@ TEST_F(TradingSystemFixture, Nemo_sell_without_login)
 
 // GET PRICE !!!
 
-//TEST_F(TradingSystemFixture, Kiwer_getPrice)
-//{
-//	// Arrange
-//	EXPECT_CALL(MOCK_KIWER, currentPrice("SAMSUNG"))
-//		.Times(1);
-//
-//	// Act
-//	ts.selectStockBroker(&MOCK_KIWER);
-//	int price = ts.getPrice("SAMSUNG");
-//}
-//
-//TEST_F(TradingSystemFixture, Nemo_getPrice)
-//{
-//	// Arrange
-//	EXPECT_CALL(MOCK_NEMO, getMarketPrice("SAMSUNG", 0))
-//		.Times(1);
-//
-//	// Act
-//	ts.selectStockBroker(&MOCK_KIWER);
-//	int price = ts.getPrice("SAMSUNG");
-//}
+TEST_F(TradingSystemFixture, Kiwer_getPrice)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_KIWER, currentPrice("SAMSUNG"))
+		.Times(1);
+
+	// Act
+	ts.selectStockBroker(&MOCK_KIWER);
+	int price = ts.getPrice("SAMSUNG");
+}
+
+TEST_F(TradingSystemFixture, Nemo_getPrice)
+{
+	// Arrange
+	EXPECT_CALL(MOCK_NEMO, getMarketPrice("SAMSUNG", 0))
+		.Times(1);
+
+	// Act
+	ts.selectStockBroker(&MOCK_NEMO);
+	int price = ts.getPrice("SAMSUNG");
+}
