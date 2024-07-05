@@ -26,13 +26,26 @@ class NemoDriver : public StockBrokerDriver {
 	int getPrice(string stockCode, int minute);
 };
 
+interface DriverSelector {
+	virtual StockBrokerDriver* selectDriver(string name) = 0;
+};
+
+class ProductDriverSelector : public DriverSelector {
+public:
+	StockBrokerDriver* selectDriver(string name) override
+	{
+		if ("Kiwer") return new KiwerDriver();
+		if ("Nemo") return  new NemoDriver();
+	}
+};
+
 class TradingSystem
 {
 public:
+	TradingSystem(DriverSelector& driver_selector) : driver_selector{ driver_selector } {};
+
 	void selectStockBroker(string Name) {
-		if ("Kiwer") driver = new KiwerDriver();
-		if ("Nemo") driver = new NemoDriver();
-		driver = nullptr;
+		driver = this->driver_selector.selectDriver(Name);
 	}
 	void login(string id, string password ) {
 		driver->login(id, password);
@@ -49,4 +62,5 @@ public:
 
 private:
 	StockBrokerDriver* driver;
+	DriverSelector& driver_selector;
 };
