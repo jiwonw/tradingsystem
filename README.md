@@ -1,0 +1,3 @@
+## TradingSystem
+---
+TradingSystem TDD KATA
