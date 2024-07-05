@@ -9,21 +9,21 @@ interface StockBrokerDriver {
 	virtual void login(string id, string password) = 0;
 	virtual void buy(string stockCode, int price, int count) = 0;
 	virtual void sell(string stockCode, int price, int count) = 0;
-	virtual void getPrice(string stockCode, int minute) = 0;
+	virtual int getPrice(string stockCode, int minute) = 0;
 };
 
 class KiwerDriver : public StockBrokerDriver {
 	void login(string id, string password);
 	void buy(string stockCode, int price, int count);
 	void sell(string stockCode, int price, int count);
-	void getPrice(string stockCode, int minute);
+	int getPrice(string stockCode, int minute);
 };
 
 class NemoDriver : public StockBrokerDriver {
 	void login(string id, string password);
 	void buy(string stockCode, int price, int count);
 	void sell(string stockCode, int price, int count);
-	void getPrice(string stockCode, int minute);
+	int getPrice(string stockCode, int minute);
 };
 
 class TradingSystem
@@ -43,8 +43,8 @@ public:
 	void sell(string stockCode, int price, int count) {
 		driver->sell(stockCode, price, count);
 	}
-	void getPrice(string stockCode, int minute) {
-		driver->getPrice(stockCode, minute);
+	int getPrice(string stockCode, int minute) {
+		return driver->getPrice(stockCode, minute);
 	}
 
 private:
