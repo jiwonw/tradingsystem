@@ -131,7 +131,7 @@ TEST_F(TradingSystemFixture, Nemo_sell)
 TEST_F(TradingSystemFixture, Kiwer_sell_without_login)
 {
 	// Arrange
-	EXPECT_CALL(MOCK_KIWER, buy("SAMSUNG", 100000, 50))
+	EXPECT_CALL(MOCK_KIWER, sell("SAMSUNG", 100000, 50))
 		.Times(1);
 
 	// Act
